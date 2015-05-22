@@ -1,0 +1,208 @@
+/*   
+Theme Name: OMGNailPolish
+Theme URI: http://omgnailpolish.com/
+Description: Theme for omgnailpolish.com
+Author: Aron Barbosa
+Author URI: http://iamaronbarbosa.com/
+Template: thematic
+Version: 1.0
+Tags: white, three-columns, two-columns, fixed-width, theme-options, left-sidebar, right-sidebar, threaded-comments, sticky-post, microformats
+License: GNU General Public License v2.0
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+
+.
+The Thematic Theme is copyright Ian Stewart http://themeshaper.com/
+This work, like WordPress, is released under GNU General Public License, version 2 (GPL).
+.
+
+*/
+
+@import url(assets/css/bootstrap.min.css);
+@import url(assets/css/bootstrap-responsive.min.css);
+@import url(assets/css/custom.css);
+@import url(assets/css/custom-responsive.css);
+@import url(assets/css/fonts.css);
+
+.home .slider,
+.home .slider-holder a.control,
+.home .circle-bx { display: none; }
+
+.home .slider-holder {
+  background: #fff;
+  height: auto;
+}
+.home .slider {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 9997;
+}
+.slider-holder a.control { z-index: 9999; }
+li {
+  font: normal 18px/24px "tahoma";
+  color: #4d4d4d;
+  margin: 0 auto;
+}
+.wait {
+  padding: 30px;
+  text-align: center;
+}
+.wait span {
+  display: block;
+  margin: 0 auto;
+  font-size: 10px;
+  color: #ccc;
+}
+.cbx-inside ul li a.active, a:hover {
+  background-position-y: 1px;
+}
+
+#myModal {
+  position: absolute;
+  background: none;
+  border: none;
+  overflow: visible;
+  outline:none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+
+@media (min-width: 1200px) {
+  #myModal {
+    width:650px;
+  }
+}
+
+@media (max-width: 767px) {
+  #myModal {
+    top:0px;
+  }
+}
+
+@media (max-width: 480px) {
+  #myModal {
+    top:0px;
+  }
+}
+
+#myModal .modal-body {
+  max-height: none;
+  padding: 0px;
+}
+
+#myModal .close {
+  opacity: 1;
+}
+
+#myModal .modal-header {
+  border: none;
+}
+
+#myModal .pop-mainbx {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+#myModal .pop-pad {
+  margin-top: 6px;
+}
+
+.nt-accessories .pad1 {
+  padding-bottom: 0px;
+}
+
+.colors-overlay{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  background-color: rgba(240, 240, 240, 0.64); /*dim the background*/
+}
+
+.color-tester {}
+.color-tester .canvass {
+  position: relative;
+}
+
+.color-tester .canvass .control {}
+
+.color-tester .canvass .control.top {
+  top: 0px;
+  right: 0px;
+  z-index: 6;
+  width: 59px;
+  position: absolute;
+}
+.color-tester .canvass .control.top a {
+  display: block;
+}
+.color-tester .canvass .control.top a.bottle {
+  margin: 0 auto;
+}
+.color-tester .canvass .control.top a.text {
+  color: #000;
+  margin-top: 6px;
+  text-align: center;
+  font: normal 12px/12px "ArialNarrow";
+}
+.color-tester .canvass .control.top a.text:hover {
+  color: #f61268;
+}
+.color-tester .canvass .main {
+  min-height: 474px;
+}
+.color-tester .canvass .main .hand {
+  height: auto;
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+}
+.color-tester .canvass .main .hand .layer-01 {
+  z-index: 0;
+  position: absolute;
+}
+.color-tester .canvass .main .hand .layer-02 {
+  z-index: 1;
+  position: absolute;
+}
+.color-tester .canvass .main .hand .layer-03 {
+  z-index: 2;
+  position: absolute;
+}
+.color-tester .canvass .main .hand .layer-04 {
+  z-index: 3;
+  position: absolute;
+}
+.color-tester .canvass .main .hand .layer-05 {
+  top: -4px;
+  z-index: 4;
+  position: absolute;
+}
+.color-container a {
+  width: 29px;
+  height: 33px;
+  display: block;
+}
+
+#slider_height, #slider_tone {
+  text-align: left;
+  position: relative;
+}
+.ui-slider-handle {
+  left: 0;
+  top: 8px;
+  width: 34px;
+  height: 33px;
+  display: block; 
+  cursor: pointer;
+  position: absolute;
+  background: url('assets/images/circle-controller.png') no-repeat;
+}
+
+.smediabox {
+float: right;
+width: 52%;
+}

@@ -1,0 +1,37 @@
+STEPS
+
+Adding/editing a new color
+
+1. Got to http://omgnailpolish.com/wp-admin/edit.php?post_type=colors to view the list of colors
+1. To add a new color, go to http://omgnailpolish.com/wp-admin/post-new.php?post_type=colors
+2. Choose a color from the color picker (e.g. Shades Of Green, Shades Of Red, etc)
+3. Choose or add a new category
+4. Save
+
+
+Adding/editing a new nail tool
+
+
+1. To view the list of nail tools go to http://omgnailpolish.com/wp-admin/edit.php?post_type=nail-tools
+2. Click add new button you want to add a new nail tool
+3. Add a description
+4. Be sure to add an excerpt or short summary
+5. Add a featured image (bottom right widget)
+    -- This image will be used as thumbnail
+6. Don't forget to add a "Nail Tools Large Image" under the custom fields located on the lower left
+7. To add a new size or a new color just click add another size or add another color and fill in the necessary data (title, image and description)
+8. Save
+
+
+Adding/editing a new accessory
+
+
+1. To view the list of nail tools go to http://omgnailpolish.com/wp-admin/edit.php?post_type=nail-tools
+2. Click add new button you want to add a new nail tool
+3. Add a description
+4. Be sure to add an excerpt or short summary
+5. Add a featured image (bottom right widget)
+    -- This image will be used as thumbnail
+6. Don't forget to add a "Nail Tools Large Image" under the custom fields located on the lower left
+7. To add a new size or a new color just click add another size or add another color and fill in the necessary data (title, image and description)
+8. Save

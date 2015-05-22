@@ -1,0 +1,430 @@
+<?php
+/**
+ * Custom Child Theme Functions
+ *
+ * This file's parent directory can be moved to the wp-content/themes directory 
+ * to allow this Child theme to be activated in the Appearance - Themes section of the WP-Admin.
+ *
+ * Included is a basic theme setup that will add support for custom header images and custom 
+ * backgrounds. There are also a set of commented theme supports that can be uncommented if you need
+ * them for backwards compatibility. If you are starting a new theme, these legacy functionality can be deleted.  
+ *
+ * More ideas can be found in the community documentation for Thematic
+ * @link http://docs.thematictheme.com
+ *
+ * @package ThematicSampleChildTheme
+ * @subpackage ThemeInit
+ */
+
+
+/* The Following add_theme_support functions 
+ * will enable legacy Thematic Features
+ * if uncommented.
+ */
+ 
+// add_theme_support( 'thematic_legacy_feedlinks' );
+// add_theme_support( 'thematic_legacy_body_class' );
+// add_theme_support( 'thematic_legacy_post_class' );
+// add_theme_support( 'thematic_legacy_comment_form' );
+// add_theme_support( 'thematic_legacy_comment_handling' );
+
+/**
+ * Define theme setup
+ */
+function childtheme_setup() {
+  
+  /*
+   * Add support for custom background
+   * 
+   * Allow users to specify a custom background image or color.
+   * Requires at least WordPress 3.4
+   * 
+   * @link http://codex.wordpress.org/Custom_Backgrounds Custom Backgrounds
+   */
+  add_theme_support( 'custom-background' );
+  
+  
+  /**
+   * Add support for custom headers
+   * 
+   * Customize to match your child theme layout and style.
+   * Requires at least WordPress 3.4
+   * 
+   * @link http://codex.wordpress.org/Custom_Headers Custom Headers
+   */
+  add_theme_support( 'custom-header', array(
+    // Header image default
+    'default-image' => '',
+    // Header text display default
+    'header-text' => true,
+    // Header text color default
+    'default-text-color' => '000',
+    // Header image width (in pixels)
+    'width' => '940',
+    // Header image height (in pixels)
+    'height' => '235',
+    // Header image random rotation default
+    'random-default' => false,
+    // Template header style callback
+    'wp-head-callback' => 'childtheme_header_style',
+    // Admin header style callback
+    'admin-head-callback' => 'childtheme_admin_header_style'
+    ) 
+  );
+  
+}
+add_action('thematic_child_init', 'childtheme_setup');
+
+
+/**
+ * Custom Image Header Front-End Callback
+ *
+ * Defines the front-end style definitions for 
+ * the custom image header.
+ * This style declaration will be output in the <head> of the
+ * document just before the closing </head> tag.
+ * Inline Syles and !important declarations 
+ * can be used to override these styles.
+ *
+ * @link http://codex.wordpress.org/Function_Reference/get_header_image get_header_image()
+ * @link http://codex.wordpress.org/Function_Reference/get_header_textcolor get_header_textcolor()
+ */
+function childtheme_header_style() {
+  ?>  
+  <style type="text/css">
+  <?php
+  /* Declares the header image from the settings
+   * saved in WP-Admin > Appearance > Header
+   * as the background-image for div#branding.
+   */
+  if ( get_header_image() && HEADER_IMAGE != get_header_image() ) {
+    ?>
+    #branding {
+      background:url('<?php header_image(); ?>') no-repeat 0 100%;
+      margin-bottom:28px;
+        padding:44px 0 <?php echo HEADER_IMAGE_HEIGHT; ?>px 0; /* Bottom padding is the same height as the image */
+        overflow: visible;
+}
+    }
+    <?php if ( 'blank' != get_header_textcolor() ) { ?>
+    #blog-title, #blog-title a {
+      color:#000;
+    }
+    #blog-description { 
+      padding-bottom: 22px;
+    }
+    <?php
+    }
+    
+  }
+  ?>
+  <?php
+  /* This delcares text color for the Blog title and Description
+   * from the settings saved in WP-Admin > Appearance > Header\
+   * If not set the deafault color is set to #000 
+   */
+  if ( get_header_textcolor() ) {
+    ?>
+    #blog-title, #blog-title a, #blog-description {
+      color:#<?php header_textcolor(); ?>;
+    }
+    <?php
+  }
+  /* Removes header text if the
+   * "Do not diplay header text…" setting is saved
+   * in WP-Admin > Appearance > Header
+   */
+  if ( ! display_header_text() ) {
+    ?>
+    #branding {
+      background-position: center bottom;
+      background-repeat: no-repeat;
+      margin-top: 32px;
+    }
+    #blog-title, #blog-title a, #blog-description {
+      display:none;
+    }
+    #branding { 
+      height:<?php echo HEADER_IMAGE_HEIGHT; ?>px; 
+      width:940px;
+      padding:0; 
+    }
+    <?php
+  }
+  ?>
+  </style>
+  <?php
+}
+
+
+/**
+ * Custom Image Header Admin Callback
+ *
+ * Callback to defines the admin (back-end) style
+ * definitions for the custom image header.
+ * Customize the css to match your theme defaults.
+ * The !important declarations override inline admin styles
+ * to better represent a WYSIWYG of the front-end styling
+ * that this child theme is currently designed to display.
+ */
+function childtheme_admin_header_style() {
+  ?>
+  <style type="text/css">
+  #headimg {
+    background-position: left bottom; 
+    background-repeat:no-repeat;
+    border:0 !important;   
+    height:auto !important;
+    padding:0 0 <?php echo HEADER_IMAGE_HEIGHT + 22; /* change the added integer (22) to match your desired top padding */?>px 0;
+    margin:0 0 28px 0;
+  }
+  
+  #headimg h1 {
+      font-family:Arial,sans-serif;
+      font-size:34px;
+      font-weight:bold;
+      line-height:40px;
+    margin:0;
+  }
+  #headimg a {
+    color: #000;
+    text-decoration: none;
+  }
+  #desc{
+    font-family: Georgia;
+      font-size: 13px;
+      font-style: italic;
+    }
+  </style>
+  <?php
+}
+
+/* Add HTML5 Doctype */
+function html5_create_doctype($content) {
+ $content = "<!DOCTYPE html>";
+ $content .= "\n";
+ $content .= "<html";
+ return $content;
+}
+add_filter('thematic_create_doctype', 'html5_create_doctype');
+ 
+//replace the lang attribute in the opening <html> tag...
+function html5_language_attributes($content) {
+  $content = "lang=\"en\"";
+  return $content;
+}
+add_filter('language_attributes', 'html5_language_attributes');
+ 
+//replace the <head> tag opening to remove the now defunct profile attribute and add the <meta charset="utf-8"> tag...
+function html5_head($content) {
+ $content = "<head>";
+ $content .= "\n";
+ $content .= "<meta charset=\"utf-8\">";
+ $content .= "\n";
+ return $content;
+}
+add_filter('thematic_head_profile', 'html5_head');
+ 
+//remove the now defunct <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> tag...
+function html5_create_charset($content) {
+ $content = "";
+ return $content;
+}
+add_filter('thematic_create_contenttype', 'html5_create_charset');
+
+/*add viewport meta*/
+function child_meta_keywords($description) {
+$keywords_meta = "\t" . '<meta name="viewport" content="width=device-width, initial-scale=1.0">' . "\n\n";
+return $description . $keywords_meta;
+}
+add_filter ('thematic_create_description','child_meta_keywords');
+
+/*start of overrides*/
+
+function childtheme_override_access() {
+  ?>
+  
+  <?php
+}
+
+function childtheme_override_brandingopen() {
+
+}
+
+function childtheme_override_blogtitle() {
+
+}
+
+function childtheme_override_blogdescription() {
+
+}
+
+function childtheme_override_brandingclose() {
+
+}
+
+function childtheme_override_siteinfoopen() {
+
+}
+
+function childtheme_override_siteinfo() {
+
+}
+
+function childtheme_override_siteinfoclose() {
+
+}
+
+/*js*/
+
+function childtheme_override_head_scripts() {
+  $scriptdir = get_stylesheet_directory_uri();
+
+  wp_enqueue_script('jquery');
+  wp_deregister_script('jquery');
+}
+
+/* content functions */
+
+function get_nail_art_accessories() {
+  $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
+  $return = new WP_Query(array('post_type' => 'nail-art-accessories', 'posts_per_page' => 8, 'paged' => $paged));
+  
+  $nacs = $return->posts;
+
+  if ($nacs) {
+    var_dump(count($nacs));
+    echo '<div class="tool-set1">';
+    for ($i=0; $i <= 3; $i++) {
+      $featuredImage = wp_get_attachment_image_src( get_post_thumbnail_id($nacs[$i]->ID), 'full' );
+      ?>
+        <div class="<?php echo ($i != 3) ? 'tool-imgbx1' : 'tool-imgbx2'; ?>">
+          <div class="<?php echo (($i%2) == 0) ? 'g-yellow-orange' : 'g-pink-darkpink'; ?>">
+            <div class="prod-pad">
+              <img alt="" src="<?php echo $featuredImage[0]; ?>">
+            </div>
+          </div>
+          <div class="nt-titlebx">
+            <p><a href="<?php echo get_bloginfo('url'); ?>/wp-admin/admin-ajax.php?action=get_nail_art_accessory&amp;id=<?php echo $nacs[$i]->ID; ?>" role="button" data-toggle="modal" data-target="#myModal"><?php echo $nacs[$i]->post_title; ?></a></p>
+          </div>
+        </div>
+      <?php
+    }
+    echo '</div>';
+
+    echo '<div class="tool-set2">';
+    for ($j=4; $j <= 7; $j++) {
+      $featuredImage2 = wp_get_attachment_image_src( get_post_thumbnail_id($nacs[$j]->ID), 'full' );
+      ?>
+        <div class="<?php echo ($j != 7) ? 'tool-imgbx1' : 'tool-imgbx2'; ?>">
+          <div class="<?php echo (($j%2) == 0) ? 'g-yellow-orange' : 'g-pink-darkpink'; ?>">
+            <div class="prod-pad">
+              <img alt="" src="<?php echo $featuredImage2[0]; ?>">
+            </div>
+          </div>
+          <div class="nt-titlebx">
+            <p><a href="<?php echo get_bloginfo('url'); ?>/wp-admin/admin-ajax.php?action=get_nail_art_accessory&amp;id=<?php echo $nacs[$j]->ID; ?>" role="button" data-toggle="modal" data-target="#myModal"><?php echo $nacs[$j]->post_title; ?></a></p>
+          </div>
+        </div>
+      <?php
+    }
+    echo '</div>';
+  }
+  wp_reset_postdata();
+}
+
+add_shortcode('nail-art-accessories', 'get_nail_art_accessories');
+
+/*ajax*/
+function get_nail_art_accessory() {
+$id = $_GET['id'];
+$query = new WP_Query( array('post_type' => 'nail-art-accessories', 'p' => $id) );
+
+$accessory = $query->posts;
+
+$featuredImage = wp_get_attachment_image_src( get_post_thumbnail_id($accessory[0]->ID), 'full' );
+?>
+<div class="pop-mainbx">
+<div class="pop-pad">
+  <div class="pop-sn-holder">
+    <div class="snico-bx">
+      <a href="#"><img alt="" src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/sn-icon-fb.png"></a>
+    </div>
+    <div class="snico-bx">
+      <a href="#"><img alt="" src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/sn-icon-twit.png"></a>
+    </div>
+    <div class="snico-bx">
+      <a href="#"><img alt="" src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/sn-icon-link.png"></a>
+    </div>
+    <div class="snico-bx">
+      <a href="#"><img alt="" src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/sn-icon-pinterest.png"></a>
+    </div>
+    <div class="snico-bx">
+      <a href="#"><img alt="" src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/sn-icon-blog.png"></a>
+    </div>
+  </div>
+  <div class="x-bx">
+    <a href="#" class="close close-x" data-dismiss="modal" aria-hidden="true"></a>
+  </div>
+  <div class="pop-content1">
+    <div class="pop-imgbx">
+      <img alt="<?php echo $accessory[0]->post_title; ?>" src="<?php echo $featuredImage[0]; ?>">
+    </div>
+    <h1><?php echo $accessory[0]->post_title; ?></h1>
+    <p>&nbsp;</p>
+    <p><?php echo $accessory[0]->post_content; ?></p>
+  </div>
+  <div class="pop-content2">
+    <div class="other-sizebx">
+      <div class="title-list2">
+        <p><a href="#">Other sizes</a></p>
+      </div>  
+      <div class="os-holder1">
+        <div class="g-yellow-orange">
+          <div class="prod-pad">
+            <img alt="" src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/othersize-img1.png">
+          </div>
+        </div>
+        <p><a href="#" class="pop-txtlink">Sample title here</a></p>
+      </div>
+      <div class="os-holder1">
+        <div class="g-pink-darkpink">
+          <div class="prod-pad">
+            <img alt="" src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/othersize-img1.png">
+          </div>
+        </div>
+        <p><a href="#" class="pop-txtlink">Sample title here</a></p>
+      </div>
+      <div class="os-holder1">
+        <div class="g-yellow-orange">
+          <div class="prod-pad">
+            <img alt="" src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/othersize-img1.png">
+          </div>
+        </div>
+        <p><a href="#" class="pop-txtlink">Sample title here</a></p>
+      </div>
+      <div class="os-holder2">
+        <div class="g-pink-darkpink">
+          <div class="prod-pad">
+            <img alt="" src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/othersize-img1.png">
+          </div>
+        </div>
+        <p><a href="#" class="pop-txtlink">Sample title here</a></p>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<?php
+
+  die;
+}
+
+add_action( 'wp_ajax_get_nail_art_accessory', 'get_nail_art_accessory' );
+add_action( 'wp_ajax_nopriv_get_nail_art_accessory', 'get_nail_art_accessory' );
+
+function prentr($s) {
+  echo '<pre>';
+  var_dump($s);
+  echo '</pre>';
+}

@@ -1,0 +1,77 @@
+.color-tester {}
+.color-tester .canvass {
+	position: relative;
+}
+
+.color-tester .canvass .control {}
+
+.color-tester .canvass .control.top {
+	top: 0px;
+	right: 0px;
+	z-index: 6;
+	width: 59px;
+	position: absolute;
+}
+.color-tester .canvass .control.top a {
+	display: block;
+}
+.color-tester .canvass .control.top a.bottle {
+	margin: 0 auto;
+}
+.color-tester .canvass .control.top a.text {
+	color: #000;
+	margin-top: 6px;
+	text-align: center;
+	font: normal 12px/12px "ArialNarrow";
+}
+.color-tester .canvass .control.top a.text:hover {
+	color: #f61268;
+}
+.color-tester .canvass .main {}
+.color-tester .canvass .main .hand {
+	height: auto;
+	width: 100%;
+	margin: 0 auto;
+	position: relative;
+}
+.color-tester .canvass .main .hand .layer-01 {
+	z-index: 0;
+	position: absolute;
+}
+.color-tester .canvass .main .hand .layer-02 {
+	z-index: 1;
+	position: absolute;
+}
+.color-tester .canvass .main .hand .layer-03 {
+	z-index: 2;
+	position: absolute;
+}
+.color-tester .canvass .main .hand .layer-04 {
+	z-index: 3;
+	position: absolute;
+}
+.color-tester .canvass .main .hand .layer-05 {
+	top: -4px;
+	z-index: 4;
+	position: absolute;
+}
+.color-container a {
+	width: 29px;
+	height: 33px;
+	display: block;
+}
+
+#slider_height, #slider_tone {
+	text-align: left;
+	position: relative;
+}
+.ui-slider-handle {
+	left: 0;
+	top: 8px;
+	width: 34px;
+	height: 33px;
+	display: block;	
+	cursor: pointer;
+	position: absolute;
+	background: url('../images/circle-controller.png') no-repeat;
+}
