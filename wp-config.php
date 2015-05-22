@@ -34,25 +34,25 @@
 
 /** The name of the database for WordPress */
 
-define('DB_NAME', 'omg1332411310202');
+define('DB_NAME', '');
 
 
 
 /** MySQL database username */
 
-define('DB_USER', 'omg1332411310202');
+define('DB_USER', '');
 
 
 
 /** MySQL database password */
 
-define('DB_PASSWORD', 'G@2!4JUR#gj');
+define('DB_PASSWORD', '');
 
 
 
 /** MySQL hostname */
 
-define('DB_HOST', 'omg1332411310202.db.11570005.hostedresource.com');
+define('DB_HOST', '');
 
 
 
